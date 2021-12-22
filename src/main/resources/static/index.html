@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Consume Data</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+              integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous" />
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="style.css" type="text/css">
+
+        <style>
+            table {
+                margin: 0 auto;
+                font-size: larger;
+                border: 2px solid black;
+            }
+
+            h1 {
+                text-align: center;
+                color: #2D4263;
+                font-size: xx-large;
+                font-family: 'Gill Sans',
+                    'Gill Sans MT', ' Calibri',
+                    'Trebuchet MS', 'sans-serif';
+            }
+
+            td {
+                background-color: #FFAFAF;
+                border: 1px solid black;
+            }
+
+            th,
+            td {
+                font-weight: bold;
+                border: 1px solid black;
+                padding: 10px;
+                text-align: center;
+            }
+
+            td {
+                font-weight: lighter;
+            }
+        </style>
+    </head>
+    <body>
+        <section>
+            <br>
+            <h1>Data Mahasiswa</h1>
+
+<!--                        <table id='table'>
+                            <tr>
+                                <th>NIM</th>
+                                <th>Nama Mahasiswa</th>
+                                <th>Alamat</th>
+                                <th>Program Studi</th>
+                                <th>Fakultas</th>
+                            </tr>
+            
+                            <script>
+                                $(document).ready(function(){
+                                    $.getJSON("http://localhost:8080/mahasiswa/json", function(data){
+                                        var mahasiswa = '';                                                       
+                                        $.each(data, function (key, value){
+                                            mahasiswa += '<tr>';
+                                            mahasiswa += '<td>'+value.nim+'</td>';
+                                            mahasiswa += '<td>'+value.nama+'</td>';
+                                            mahasiswa += '<td>'+value.alamat+'</td>';
+                                            mahasiswa += '<td>'+value.programStudi+'</td>';
+                                            mahasiswa += '<td>'+value.fakultas+'</td>';
+                                            mahasiswa += '</tr>';
+                                        });
+                                        
+                                        $('#table').append(mahasiswa);
+                                    });
+                                });
+                            </script>
+                        </table>-->
+
+<!--                        <div class="cari">                                
+                            <input type="search" class="form-control" id="search" placeholder="Cari Data"/><br/>                
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>NIM</th>
+                                        <th>Nama Mahasiswa</th>
+                                        <th>Alamat</th>
+                                        <th>Program Studi</th>
+                                        <th>Fakultas</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+            
+                                </tbody>
+                            </table>
+                            <script>
+                                $('#search').keydown(function () {
+                                    $.getJSON("http://localhost:8080/mahasiswa/json", function (data) {
+                                        var search = $('#search').val();
+                                        var regex = new RegExp(search, 'i');
+                                        var output;
+                                        $.each(data, function (key, val) {
+                                            if ((val.nim.search(regex)) !== -1 || (val.nama.search(regex)) !== -1 || (val.alamat.search(regex)) !== -1) {
+                                                output += "<tr>";
+                                                output += "<td nim='" + key + "'>" + val.nim + "</td>";
+                                                output += "<td nim='" + key + "'>" + val.nama + "</td>";
+                                                output += "<td nim='" + key + "'>" + val.alamat + "</td>";
+                                                output += "<td nim='" + key + "'>" + val.programStudi + "</td>";
+                                                output += "<td nim='" + key + "'>" + val.fakultas + "</td>";
+                                                output += "</tr>";
+                                            }
+                                            ;
+                                        });
+                                        $('tbody').html(output);
+                                    });
+                                });
+                            </script>
+                        </div>-->
+
+            <br>
+            <div class="container">
+                <input type="search" class="form-control" id="search" placeholder="Cari Data"/><br/>
+                <h4>Hasil Pencarian</h4>
+                <div class="kartu">
+                    <br>
+                    <script>
+                        $('#search').keydown(function () {
+                            $.getJSON("http://localhost:8080/mahasiswa/json", function (data) {
+                                var search = $('#search').val();
+                                var regex = new RegExp(search, 'i');
+                                var output;
+                                $.each(data, function (key, val) {
+                                    if ((val.nim.search(regex)) !== -1 || (val.nama.search(regex)) !== -1 || (val.alamat.search(regex)) !== -1) {
+                                        output += `<div class="card bg-light border-dark mb-3" style="max-width: 80rem;">`;
+                                        output += `<div class="card-header" nim="${key}">NIM : ${val.nim}</div>`;
+                                        output += `<div class="card-body">`;
+                                        output += `<h5 class="card-title" nim="${key}">${val.nama}</h5>`;
+                                        output += `<p class="card-text" nim="${key}">Fakultas : ${val.fakultas}</p>`;
+                                        output += `<p class="card-text" nim="${key}">Program Studi : ${val.programStudi}</p>`;
+                                        output += `<p class="card-text" nim="${key}">Alamat : ${val.alamat}</p>`;
+                                        output += `</div>`;
+                                        output += `</div>`;
+                                        output += `</div>`;
+                                    }
+                                });
+                                $('.kartu').html(output);
+                            });
+                        });
+                    </script>                   
+                </div>                                
+            </div>
+
+            <div class="semuadata">
+                <hr style="height: 15px;">
+                <h3>Semua Data : </h3>
+
+                <div class="container2">
+
+                    <script>
+                        $(document).ready(function () {
+                            $.getJSON("http://localhost:8080/mahasiswa/json", function (data) {
+                                var mahasiswa = '';
+                                $.each(data, function (key, value) {
+                                    mahasiswa += '<div class="card bg-light border-dark mb-3" style="max-width: 70rem;">';
+                                    mahasiswa += `<div class="card-header">NIM : ${value.nim}</div>`;
+                                    mahasiswa += '<div class="card-body">';
+                                    mahasiswa += `<h5 class="card-title">${value.nama}</h5>`;
+                                    mahasiswa += `<p class="card-text">Fakultas : ${value.fakultas}</p>`;
+                                    mahasiswa += `<p class="card-text">Program Studi : ${value.programStudi}</p>`;
+                                    mahasiswa += `<p class="card-text">Alamat : ${value.alamat}</p>`;
+                                    mahasiswa += "</div>";
+                                    mahasiswa += "</div>";
+    //                               mahasiswa += "</div>";
+                                });
+                                $(".container2").html(mahasiswa);
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+        </section>
+        <!-- comment -->       
+        <!--        <button onclick="openXMLMahasiswa()">Show mahasiswa in XML</button>
+                <button onclick="openJSONMahasiswa()">Show mahasiswa in JSON</button>
+                <hr>
+                <div id="viewer"></div>
+                <script>
+                    var view = document.getElementById("viewer");
+        
+                    function openXMLMahasiswa() {
+                        let url = "http://localhost:8080/mahasiswa/xml";
+                        fetch(url).then((result) => {
+                            return result.text();
+                        })
+                                .then((data) => {
+                                    view.innerHTML = data;
+                                });
+                    }
+        
+                    function openJSONMahasiswa() {
+                        let url = "http://localhost:8080/mahasiswa/json";
+                        fetch(url).then(
+                                (result) => {
+                            return result.json();
+                        }
+                        )
+                                .then(
+                                        (data) => {
+                                    console.log("JSON : " + data);
+                                    show(data);
+                                }
+                                );
+                    }
+        
+                    function show(data) {
+                        let result = "";
+                        for (i = 0; i < data.length; i++) {
+                            result += "<p>" + (i + 1) + ". " + data[i] + "</p>";
+                        }
+                        view.innerHTML = result;
+                    }
+                </script>-->
+    </body>
+</html>
